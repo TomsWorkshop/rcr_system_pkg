@@ -11,6 +11,6 @@
   
   <node pkg="user_interface" name="speed_ui" type="speed_ui.py">
     <param name="clk" value="$(arg speed_clk)"/>
-    <param name="dio" value="$(arg speed_clk)"/>
+    <param name="dio" value="$(arg speed_dio)"/>
   </node>
 </launch>
