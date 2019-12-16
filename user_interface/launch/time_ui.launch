@@ -1,0 +1,16 @@
+<launch>
+  <arg name="time_clk" default="20"/>
+  <arg name="time_dio" default="26"/>
+  <arg name="speed_clk" default="16"/>
+  <arg name="speed_dio" default="19"/>
+
+  <node pkg="user_interface" name="time_ui" type="time_ui.py">
+    <param name="clk" value="$(arg time_clk)"/>
+    <param name="dio" value="$(arg time_dio)"/>
+  </node>
+  
+  <node pkg="user_interface" name="speed_ui" type="speed_ui.py">
+    <param name="clk" value="$(arg speed_clk)"/>
+    <param name="dio" value="$(arg speed_clk)"/>
+  </node>
+</launch>
