@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="usb_device_checker" name="usb_device_checker" type="usb_device_checker.py"/>
+</launch>
