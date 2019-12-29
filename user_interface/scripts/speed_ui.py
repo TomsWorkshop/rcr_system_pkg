@@ -155,6 +155,3 @@ if __name__ == "__main__":
     try:
         speed_ui(tm)
     except rospy.ROSInterruptException: pass
-
-
-
