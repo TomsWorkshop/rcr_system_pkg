@@ -4,8 +4,7 @@ import rospy
 import smbus            # use I2C
 import math             # mathmatics
 from time import sleep  # time module
-from geometry_msgs.msg import Vector3
-from std_msgs.msg import Float32
+from sensor_msgs.msg import Imu, Temperature
 
 class mpu6050():
     # slave address
@@ -82,36 +81,36 @@ class mpu6050():
 
 mpu6050 = mpu6050()
 
-def talker():
-    acc_publisher  = rospy.Publisher('/mpu6050_acc',  Vector3, queue_size=10)
-    gyro_publisher = rospy.Publisher('/mpu6050_gyro', Vector3, queue_size=10)
-    temp_publisher = rospy.Publisher('/mpu6050_temp', Float32, queue_size=10)
+def imu_publish():
+    imu_publisher = rospy.Publisher('/mpu6050_imu', Imu, queue_size=10)
+    temp_publisher = rospy.Publisher('/mpu6050_temp', Temperature, queue_size=10)
     
     rospy.init_node('imu_sensor')
     r = rospy.Rate(10) # 10hz
     
     while not rospy.is_shutdown():
-        acc_msg = Vector3()
+        imu_msg = Imu()
+        
         acc_array  = mpu6050.get_accel_data_g()
-        acc_msg.x = acc_array[0]
-        acc_msg.y = acc_array[1]
-        acc_msg.z = acc_array[2]
-        acc_publisher.publish(acc_msg)
+        imu_msg.linear_acceleration.x = acc_array[0]
+        imu_msg.linear_acceleration.y = acc_array[1]
+        imu_msg.linear_acceleration.z = acc_array[2]
         
-        gyro_msg = Vector3()
         gyro_array = mpu6050.get_gyro_data_deg()
-        gyro_msg.x = gyro_array[0]
-        gyro_msg.y = gyro_array[1]
-        gyro_msg.z = gyro_array[2]
-        gyro_publisher.publish(gyro_msg)
+        imu_msg.angular_velocity.x = gyro_array[0]
+        imu_msg.angular_velocity.y = gyro_array[1]
+        imu_msg.angular_velocity.z = gyro_array[2]
         
-        temp_msg = Float32()
-        temp_msg = mpu6050.get_temp()
+        imu_publisher.publish(imu_msg)
+        
+        temp_msg = Temperature()
+        temp_val = mpu6050.get_temp()
+        temp_msg.temperature = temp_val
         temp_publisher.publish(temp_msg)
         
         r.sleep()
 
 if __name__ == '__main__':
     try:
-        talker()
+        imu_publish()
     except rospy.ROSInterruptException: pass
