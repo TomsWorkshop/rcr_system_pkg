@@ -155,6 +155,3 @@ if __name__ == "__main__":
     try:
         time_ui(tm)
     except rospy.ROSInterruptException: pass
-
-
-
