@@ -194,7 +194,9 @@ include_directories(
 # Python scripts
 set(PYTHON_SCRIPTS
   scripts/time_ui.py
-  scripts/speed_ui.py
+  scripts/total_mileage_ui.py
+  scripts/section_mileage_ui.py
+  scripts/topic_ui.py
 )
 
 foreach(scripts ${PYTHON_SCRIPTS})
