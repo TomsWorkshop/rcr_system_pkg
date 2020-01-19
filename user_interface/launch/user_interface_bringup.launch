@@ -1,0 +1,23 @@
+<launch>
+  <arg name="time_dio" default="17"/>
+  <arg name="time_clk" default="27"/>
+  <arg name="total_mileage_dio" default="22"/>
+  <arg name="total_mileage_clk" default="10"/>
+  <arg name="section_mileage_dio" default="9"/>
+  <arg name="section_mileage_clk" default="11"/>
+
+  <node pkg="user_interface" name="time_ui" type="time_ui.py">
+    <param name="dio" value="$(arg time_dio)"/>
+    <param name="clk" value="$(arg time_clk)"/>
+  </node>
+  
+  <node pkg="user_interface" name="total_mileage" type="total_mileage_ui.py">
+    <param name="dio" value="$(arg total_mileage_dio)"/>
+    <param name="clk" value="$(arg total_mileage_clk)"/>
+  </node>
+  
+  <node pkg="user_interface" name="section_mileage" type="section_mileage_ui.py">
+    <param name="dio" value="$(arg section_mileage_dio)"/>
+    <param name="clk" value="$(arg section_mileage_clk)"/>
+  </node>
+</launch>

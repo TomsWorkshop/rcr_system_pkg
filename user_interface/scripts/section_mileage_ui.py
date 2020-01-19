@@ -7,11 +7,11 @@ from time import time, sleep, localtime
 from wiringpi2 import wiringPiSetupGpio, pinMode, digitalRead, digitalWrite, GPIO
 wiringPiSetupGpio()
 
-if rospy.has_param('/speed_ui/clk'):
-    CLK = rospy.get_param('/speed_ui/clk')
+if rospy.has_param('/section_mileage/clk'):
+    CLK = rospy.get_param('/section_mileage/clk')
     
-if rospy.has_param('/speed_ui/dio'):
-    DIO = rospy.get_param('/speed_ui/dio')
+if rospy.has_param('/section_mileage/dio'):
+    DIO = rospy.get_param('/section_mileage/dio')
 
 """
       A
@@ -141,17 +141,16 @@ def show_clock(tm):
     sleep(.2)
     tm.set_segments([d0, d1, d2, d3, d4, d5])
 
-def speed_ui(tm):
-    rospy.init_node('speed_ui', anonymous=True)
+def section_mileage(tm):
+    rospy.init_node('section_mileage', anonymous=True)
     r = rospy.Rate(10) # 10hz
     
     while not rospy.is_shutdown():
         r.sleep()
-        # show_ip_address(tm)
         show_clock(tm)
 
 if __name__ == "__main__":
     tm = TM1637(CLK, DIO)
     try:
-        speed_ui(tm)
+        section_mileage(tm)
     except rospy.ROSInterruptException: pass
