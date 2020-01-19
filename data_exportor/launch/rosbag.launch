@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="topic_0" default="/chatter"/>
-  <arg name="topic_1" default="26"/>
+  <arg name="topic_0" default="/mpu6050_imu"/>
+  <arg name="topic_1" default="/mpu6050_temp"/>
   <arg name="topic_2" default="16"/>
   <arg name="topic_3" default="19"/>
 
-  <node pkg="data_exportor" name="talker" type="talker.py"/>
+  <node pkg="imu_sensor" name="imu_sensor" type="mpu6050.py"/>
 
   <node pkg="rosbag" type="record" name="rosbag_record"
-        args="record -o /home/pi/export_files/bagfile $(arg topic_0)"/>
+        args="record -o /home/pi/export_files/bagfile $(arg topic_0) $(arg topic_1)"/>
 </launch>
