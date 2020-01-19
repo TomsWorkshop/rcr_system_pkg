@@ -3,15 +3,16 @@
 import rospy
 import subprocess
 from time import time, sleep, localtime
+from sensor_msgs.msg import Imu, Temperature
 
 from wiringpi2 import wiringPiSetupGpio, pinMode, digitalRead, digitalWrite, GPIO
 wiringPiSetupGpio()
 
-if rospy.has_param('/time_ui/clk'):
-    CLK = rospy.get_param('/time_ui/clk')
+if rospy.has_param('/topic_ui/clk'):
+    CLK = rospy.get_param('/topic_ui/clk')
     
-if rospy.has_param('/time_ui/dio'):
-    DIO = rospy.get_param('/time_ui/dio')
+if rospy.has_param('/topic_ui/dio'):
+    DIO = rospy.get_param('/topic_ui/dio')
 
 """
       A
@@ -45,7 +46,8 @@ class TM1637:
         0b0111001, # C
         0b1011110, # d
         0b1111001, # E
-        0b1110001  # F
+        0b1110001, # F
+        0b0000000  # null
         ]
 
     def __init__(self, clk, dio):
@@ -118,40 +120,26 @@ class TM1637:
 
         return
 
-
-def show_ip_address(tm):
-    ipaddr = subprocess.check_output("hostname -I", shell=True, timeout=1).strip().split(b".")
-    for octet in ipaddr:
-        tm.set_segments([0, 0, 0, 0, 0, 0])
-        sleep(0.1)
-        tm.set_segments([tm.digit_to_segment[int(x) & 0xf] for x in octet])
-        sleep(0.9)
-
-
-def show_clock(tm):
-    t = localtime()
-    sleep(1 - time() % 1)
-    d0 = tm.digit_to_segment[t.tm_hour // 10] if t.tm_hour // 10 else 0
-    d1 = tm.digit_to_segment[t.tm_hour % 10]
-    d2 = tm.digit_to_segment[t.tm_min // 10]
-    d3 = tm.digit_to_segment[t.tm_min % 10]
-    d4 = tm.digit_to_segment[t.tm_sec // 10]
-    d5 = tm.digit_to_segment[t.tm_sec % 10]
-    tm.set_segments([d0, 0x80 + d1, d2, 0x80 + d3, d4, d5])
-    sleep(.2)
-    tm.set_segments([d0, d1, d2, d3, d4, d5])
-
-def time_ui(tm):
-    rospy.init_node('time_ui', anonymous=True)
-    r = rospy.Rate(10) # 10hz
+def data_show(data):
+    temp = "{0:.2f}".format(data.temperature)
     
-    while not rospy.is_shutdown():
-        r.sleep()
-        # show_ip_address(tm)
-        show_clock(tm)
+    tm = TM1637(20, 26)
+    
+    d0 = tm.digit_to_segment[16]
+    d1 = tm.digit_to_segment[16]
+    d2 = tm.digit_to_segment[int(temp[-5])]
+    d3 = tm.digit_to_segment[int(temp[-4])]
+    d4 = tm.digit_to_segment[int(temp[-2])]
+    d5 = tm.digit_to_segment[int(temp[-1])]
+    
+    tm.set_segments([d0, d1, d2, 0x80 + d3, d4, d5])
+
+def topic_ui():
+    rospy.init_node('topic_ui', anonymous=True)
+    rospy.Subscriber("/mpu6050_temp", Temperature, data_show)
+    rospy.spin()
 
 if __name__ == "__main__":
-    tm = TM1637(CLK, DIO)
     try:
-        time_ui(tm)
+        topic_ui()
     except rospy.ROSInterruptException: pass
