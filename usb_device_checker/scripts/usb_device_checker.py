@@ -12,7 +12,7 @@ def status_publisher():
   rospy.init_node('usb_device_checker', anonymous=True)
   r = rospy.Rate(10) # 10hz
   while not rospy.is_shutdown():
-    if GPIO.input(12) == GPIO.LOW:
+    if GPIO.input(21) == GPIO.LOW:
       status = False
     else:
       status = True
