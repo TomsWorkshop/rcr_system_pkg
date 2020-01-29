@@ -1,6 +1,0 @@
-<launch>
-  <node pkg="imu_sensor" name="imu" type="mpu6050.py">
-    <param name="clk" value="$(arg time_clk)"/>
-    <param name="dio" value="$(arg time_dio)"/>
-  </node>
-</launch>
