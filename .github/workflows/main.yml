@@ -11,6 +11,7 @@ jobs:
             ROS_REPO: "main",
             OPT_VI: "-vi",
             CATKIN_LINT: "true",
+            ROSDEP_SKIP_KEYS: "data_exportor usb_device_checker user_interface",
             CATKIN_LINT_ARGS: "--ignore unknown_package"}
 
     runs-on: ubuntu-latest

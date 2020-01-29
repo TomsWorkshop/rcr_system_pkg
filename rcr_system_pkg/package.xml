@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rcr_system_pkg</name>
+  <version>0.0.0</version>
+  <description>The rcr_system_pkg package</description>
+
+  <maintainer email="kuwano.tomohiro455@mail.kyutech.jp">calm0815</maintainer>
+
+  <license>TODO</license>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>data_exporter</exec_depend>
+  <exec_depend>tyre_trip_publisher</exec_depend>
+  <exec_depend>usb_device_checker</exec_depend>
+  <exec_depend>user_interface</exec_depend>
+
+  <export>
+    <metapackage />
+  </export>
+</package>
