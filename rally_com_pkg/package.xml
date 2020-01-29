@@ -11,9 +11,6 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <exec_depend>data_exporter</exec_depend>
-  <exec_depend>imu_sensor</exec_depend>
-  <exec_depend>sensor_bringup</exec_depend>
-  <exec_depend>sensor_pkgs</exec_depend>
   <exec_depend>tyre_trip_publisher</exec_depend>
   <exec_depend>usb_device_checker</exec_depend>
   <exec_depend>user_interface</exec_depend>

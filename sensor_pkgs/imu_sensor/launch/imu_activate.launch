@@ -1,3 +1,0 @@
-<launch>
-  <node pkg="imu_sensor" name="imu_sensor" type="mpu6050.py"/>
-</launch>
