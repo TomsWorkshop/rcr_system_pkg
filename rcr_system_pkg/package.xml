@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>rally_com_pkg</name>
+  <name>rcr_system_pkg</name>
   <version>0.0.0</version>
-  <description>The rally_com_pkg package</description>
+  <description>The rcr_system_pkg package</description>
 
   <maintainer email="kuwano.tomohiro455@mail.kyutech.jp">calm0815</maintainer>
 
