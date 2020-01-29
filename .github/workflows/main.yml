@@ -1,0 +1,22 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  industrial_ci:
+    strategy:
+      matrix:
+        env:
+          - {ROS_DISTRO: "kinetic",
+            ROS_REPO: "main",
+            OPT_VI: "-vi",
+            CATKIN_LINT: "true",
+            CATKIN_LINT_ARGS: "--ignore unknown_package"}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: calm0815/rally_computer_ros
+      - uses: "ros-industrial/industrial_ci@master"
+        env: ${{matrix.env}}
