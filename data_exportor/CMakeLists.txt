@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(data_exportor)
 
 find_package(catkin REQUIRED COMPONENTS
+  rosbag
 )
 
 catkin_package(
-  INCLUDE_DIRS include
+  # INCLUDE_DIRS include
   CATKIN_DEPENDS
 )
 
@@ -14,8 +15,8 @@ catkin_package(
 ###########
 
 include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
+  # include
+  # ${catkin_INCLUDE_DIRS}
 )
 
 #############
@@ -23,26 +24,26 @@ include_directories(
 #############
 
 # Python scripts
-set(PYTHON_SCRIPTS
-)
+# set(PYTHON_SCRIPTS
+# )
 
-foreach(scripts ${PYTHON_SCRIPTS})
-  catkin_install_python(PROGRAMS ${scripts}
-    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-endforeach()
+# foreach(scripts ${PYTHON_SCRIPTS})
+#   catkin_install_python(PROGRAMS ${scripts}
+#     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+# endforeach()
 
 #############
 ## Testing ##
 #############
 
-# if (CATKIN_ENABLE_TESTING)
-#   find_package(roslaunch REQUIRED)
+if (CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
 
-#   set(DIRECTORIES
-#     ./launch/
-#     )
+  set(DIRECTORIES
+    ./launch/
+    )
 
-#   foreach(dirs ${DIRECTORIES})
-#     roslaunch_add_file_check(${dirs})
-#   endforeach()
-# endif()
+  foreach(dirs ${DIRECTORIES})
+    roslaunch_add_file_check(${dirs})
+  endforeach()
+endif()

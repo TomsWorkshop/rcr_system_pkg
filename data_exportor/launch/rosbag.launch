@@ -5,7 +5,7 @@
   <arg name="topic_2" default="16"/>
   <arg name="topic_3" default="19"/>
 
-  <node pkg="imu_sensor" name="imu_sensor" type="mpu6050.py"/>
+  <!-- <node pkg="imu_sensor" name="imu_sensor" type="mpu6050.py"/> -->
 
   <node pkg="rosbag" type="record" name="rosbag_record"
         args="record -o /home/pi/export_files/bagfile $(arg topic_0) $(arg topic_1)"/>
