@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(data_exportor)
 
 find_package(catkin REQUIRED COMPONENTS
+  rosbag
 )
 
 catkin_package(
