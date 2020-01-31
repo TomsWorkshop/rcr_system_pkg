@@ -18,6 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: calm0815/rally_computer_ros
+          repository: calm0815/rcr_system_pkg
       - uses: "ros-industrial/industrial_ci@master"
         env: ${{matrix.env}}
