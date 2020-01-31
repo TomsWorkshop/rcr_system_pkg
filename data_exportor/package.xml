@@ -12,4 +12,6 @@
 
   <depend>rosbag</depend>
 
+  <test_depend>roslaunch</test_depend>
+
 </package>
